@@ -56,7 +56,7 @@ namespace DataScraper
                 {
                     context.Response.ContentType = "application/problem+json";
                     var errorDetails=   context.Features.Get<IExceptionHandlerFeature>();
-                    var ss=context.Response.StatusCode ;
+                    //context.Response.StatusCode =200;
 
                     var problem = new ErrorMessage(Error: errorDetails.Error.Message);
                     //Serialize the problem details object to the Response as JSON (using System.Text.Json)

@@ -23,10 +23,10 @@ namespace DataScraper.CQRS
                     var response = await client.GetAsync(url);
 
                     var res = await response.Content.ReadAsStringAsync();
-                    if (res.StartsWith("<?xml"))
-                    {
-                        return null;
-                    }
+                    //if (res.StartsWith("<?xml"))
+                    //{
+                    //    return null;
+                    //}
 
                     var data = res.Split("\n")[1..^1]
                         .Select(record => {

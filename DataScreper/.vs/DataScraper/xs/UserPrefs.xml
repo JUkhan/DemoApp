@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{D60DDF3C-A872-4C31-B6F9-9DACB06F3D4C}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataScraper/Controllers/RollingDataController.cs">
+    <Files>
+      <File FileName="DataScraper/CQRS/GetDataByPeriod.cs" Line="30" Column="1" />
+      <File FileName="DataScraper/ClientApp/src/components/RollingHeader.tsx" Line="17" Column="90" />
+      <File FileName="DataScraper/ClientApp/src/state/AnalyserState.ts" Line="87" Column="37" />
+      <File FileName="DataScraper/Startup.cs" Line="59" Column="53" />
+      <File FileName="DataScraper/Controllers/RollingDataController.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DataScraper" expanded="True">
+            <Node name="DataScraper" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="RollingDataController.cs" selected="True" />
+              </Node>
+              <Node name="CQRS" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.DataScraper PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

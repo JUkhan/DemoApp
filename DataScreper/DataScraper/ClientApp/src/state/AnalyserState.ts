@@ -43,9 +43,10 @@ export class AnalyserState extends StateController<IAnalyserState> {
   }
   setCheckbox(isChecked: boolean) {
     this.emit({ isChecked });
-  }
-  onInit() {
-    this.to = moment().subtract(1, 'days').toDate();
+    }
+  chartData: RollingData[] = [];
+    onInit() {
+        this.to = moment().subtract(1,'m').toDate();
     this.from = new Date(this.to.getTime() - 1000 * 60 * 60);
 
     interval(1000 * 15)
@@ -54,9 +55,10 @@ export class AnalyserState extends StateController<IAnalyserState> {
         filter((_) => this.state.isChecked),
         tap(() => {
           if (this.state.data.length > 0) {
-            var record = this.state.data[this.state.data.length - 1];
+            var record = this.state.data[0];
             this.from = new Date(`${record.date}T${record.time}`);
-            this.to = new Date(this.from.getTime() + 1000 * 15);
+              this.to = new Date(this.from.getTime() + 1000 * 15);
+              this.from = this.to;
           }
         }),
 
@@ -67,28 +69,38 @@ export class AnalyserState extends StateController<IAnalyserState> {
             )}/${this.getDateString(this.to)}`
           )
         ),
-        //map((data) => this.mapHistogramData(data)),
-        tap((data) => {
-          console.log(data);
+        filter((data:any[]) => data && data.length>0),
+        tap((data:RollingData[]) => {
+         
           if (this.state.data.length > 0) {
-            const temp = this.state.data.slice();
-            temp.shift();
-            temp.push(data[1]);
-            this.emit({
-              data: temp,
-              lineChart: this.mapLineChartData(temp),
+            
+              this.emit({
+                  data: this.getGridData(this.state.data, data[0]),
+                  lineChart: this.mapLineChartData(this.getChartData(this.chartData, data[0])),
             });
           } else {
-            this.emit({ data, lineChart: this.mapLineChartData(data) });
+              this.chartData = data;
+              this.emit({ data: data.concat().sort((a, b) => b.time.localeCompare(a.time)), lineChart: this.mapLineChartData(data) });
           }
         }),
         catchError((err: Error) => {
-          console.error('error::', err.message);
+          console.info(err.message);
           return from([]);
         })
       )
       .subscribe();
   }
+    private getGridData(data: any[], record: any) {
+        const temp = data.slice(0, data.length-1);
+        temp.unshift(record);
+        return temp;
+    }
+    private getChartData(data: any[], record: any) {
+        const temp = [...data, record];
+        temp.shift();
+        this.chartData = temp;
+        return temp;
+    }
   getDateString(date: Date) {
     return moment(date).format('yyyy-MM-DD HH:mm:ss');
   }
@@ -105,13 +117,12 @@ export class AnalyserState extends StateController<IAnalyserState> {
         //body: JSON.stringify(this.searchFormData()),
       })
         .then((res) => res.json())
-        .then((data) => {
-          if (data.Status == 500) {
-            throw new Error(data.Error);
-          }
-          return data;
+        .catch(err => {
+            console.log(err);
+            debugger;
+            throw err;
         })
-      //.catch((err) => console.error('catch:', err))
+      
     );
   }
   private mapLineChartData(data: RollingData[]) {

@@ -14,7 +14,7 @@ function Header() {
     }
     return (<div className="form-check">
         <input onChange={clickHandler} checked={isChecked} type="checkbox" className="form-check-input" id="exampleCheck1" />
-        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+        <label className="form-check-label" htmlFor="exampleCheck1">Check me out for live</label>
     </div>)
 }
 
